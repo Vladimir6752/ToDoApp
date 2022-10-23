@@ -9,6 +9,7 @@ import java.util.List;
 
 public class StepParser {
     private static ToDoDao toDoDao = null;
+    int i;
 
     public StepParser(ToDoDao toDoDao) {
         StepParser.toDoDao = toDoDao;
