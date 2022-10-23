@@ -20,7 +20,6 @@ public class StepParser {
         try {
             return getStepsArray(toDo.getSteps());
         } catch (Exception e) {
-            System.out.println("getSteps was null");
             return new ArrayList<>();
         }
     }
