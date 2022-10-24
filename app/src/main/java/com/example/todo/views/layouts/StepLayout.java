@@ -6,7 +6,7 @@ import android.content.Context;
 import com.example.todo.dao.ToDoDao;
 import com.example.todo.models.Step;
 import com.example.todo.models.ToDo;
-import com.example.todo.views.otherViews.StepCheckBox;
+import com.example.todo.views.buttons.StepCheckBox;
 import com.example.todo.views.textViews.StepTextView;
 
 @SuppressLint("ViewConstructor")

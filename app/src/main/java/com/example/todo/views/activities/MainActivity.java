@@ -60,13 +60,11 @@ public class MainActivity extends AppCompatActivity {
         );
     }
 
-    private void inizializeAllToDoView() {
+    public void inizializeAllToDoView() {
         mainLayout.removeAllViews();
 
-
-
         for (ToDo todo : toDoDao.getAllToDos()) {
-            mainLayout.addView(new ToDoCardShell(getApplicationContext(), todo, toDoDao));
+            mainLayout.addView(new ToDoCardShell(getApplicationContext(), todo, toDoDao, this));
         }
     }
 

@@ -1,23 +1,18 @@
 package com.example.todo.views.otherViews;
 
-import android.animation.LayoutTransition;
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.widget.LinearLayout;
-
-import androidx.cardview.widget.CardView;
 
 import com.example.todo.R;
 import com.example.todo.logicClasses.StepParser;
 import com.example.todo.dao.ToDoDao;
-import com.example.todo.listeners.OnToDoCardViewListener;
 import com.example.todo.models.Step;
 import com.example.todo.models.ToDo;
+import com.example.todo.views.activities.MainActivity;
 import com.example.todo.views.layouts.BaseLayout;
 import com.example.todo.views.layouts.StepContainerLayout;
 import com.example.todo.views.layouts.StepLayout;
 import com.example.todo.views.layouts.ToDoCardInformationLayout;
-import com.example.todo.views.textViews.ToDoCreatedDateTextView;
 import com.example.todo.views.textViews.ToDoTitleTextView;
 
 import java.util.ArrayList;
@@ -25,11 +20,13 @@ import java.util.List;
 
 @SuppressLint("ViewConstructor")
 public class ToDoCardView extends BaseLayout {
-    private final ToDoDao toDoDao;
+    private final MainActivity mainActivity;
     private StepContainerLayout stepContainer;
+    private final ToDoDao toDoDao;
 
-    public ToDoCardView(Context context, ToDo toDo, ToDoDao toDoDao) {
+    public ToDoCardView(Context context, ToDo toDo, MainActivity mainActivity, ToDoDao toDoDao) {
         super(context, VERTICAL);
+        this.mainActivity = mainActivity;
         this.toDoDao = toDoDao;
 
         initializeToDoCardView(context, toDo);
@@ -48,7 +45,7 @@ public class ToDoCardView extends BaseLayout {
 
         addView(stepContainer);
 
-        stepContainer.addView(new ToDoCardInformationLayout(context, toDo, toDoDao));
+        stepContainer.addView(new ToDoCardInformationLayout(context, toDo, toDoDao, mainActivity, stepContainer));
 
         initializeSteps(context, toDo);
     }

@@ -3,6 +3,8 @@ package com.example.todo.views.textViews;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.todo.R;
@@ -17,5 +19,10 @@ public class ToDoCreatedDateTextView extends BaseTextView {
                 15,
                 toDo.getCreatedDate()
         );
+
+        setLayoutParams(new ViewGroup.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.MATCH_PARENT
+        ));
     }
 }
