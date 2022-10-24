@@ -7,10 +7,10 @@ import android.widget.LinearLayout;
 
 import com.example.todo.dao.ToDoDao;
 import com.example.todo.views.activities.MainActivity;
-import com.example.todo.views.otherViews.PatternToDoView;
+import com.example.todo.views.otherViews.ToDoPatternView;
 
 public class OnClickAddToDoButtonListener implements View.OnClickListener {
-    private final PatternToDoView patternToDoView;
+    private final ToDoPatternView toDoPatternView;
     private final ToDoDao toDoDao;
     private final Context context;
     private final MainActivity mainActivity;
@@ -23,29 +23,29 @@ public class OnClickAddToDoButtonListener implements View.OnClickListener {
 
         activitySystemService = (InputMethodManager) mainActivity.getSystemService(Context.INPUT_METHOD_SERVICE);
 
-        mainLayout.addView(patternToDoView = new PatternToDoView(context, toDoDao), 0);
+        mainLayout.addView(toDoPatternView = new ToDoPatternView(context, toDoDao), 0);
     }
 
     @Override
     public void onClick(View v) {
-        int visibility = patternToDoView.getVisibility();
+        int visibility = toDoPatternView.getVisibility();
 
         if(visibility == View.GONE) {
             activitySystemService.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
-            patternToDoView.setVisibility(View.VISIBLE);
+            toDoPatternView.setVisibility(View.VISIBLE);
         }
         else {
             activitySystemService.toggleSoftInput(InputMethodManager.HIDE_NOT_ALWAYS, 0);
-            patternToDoView.setVisibility(View.GONE);
+            toDoPatternView.setVisibility(View.GONE);
             resetPatternToDo();
         }
 
-        patternToDoView.setFocusOnTextEdit();
+        ToDoPatternView.titleToDoTextView.requestFocus();
     }
 
     private void resetPatternToDo() {
-        String titleInputText = PatternToDoView.getTitleInputText();
-        PatternToDoView.setTitleToDoTextView("");
+        String titleInputText = ToDoPatternView.getTitleInputText();
+        ToDoPatternView.setTitleToDoTextView("");
 
         if(titleInputText.equals("")) {
             return;

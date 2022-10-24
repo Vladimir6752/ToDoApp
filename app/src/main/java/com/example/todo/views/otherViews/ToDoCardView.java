@@ -20,19 +20,22 @@ import java.util.List;
 
 @SuppressLint("ViewConstructor")
 public class ToDoCardView extends BaseLayout {
+    private final ToDo toDo;
     private final MainActivity mainActivity;
     private StepContainerLayout stepContainer;
     private final ToDoDao toDoDao;
 
     public ToDoCardView(Context context, ToDo toDo, MainActivity mainActivity, ToDoDao toDoDao) {
         super(context, VERTICAL);
+
         this.mainActivity = mainActivity;
         this.toDoDao = toDoDao;
+        this.toDo = toDo;
 
-        initializeToDoCardView(context, toDo);
+        initializeToDoCardView(context);
     }
 
-    private void initializeToDoCardView(Context context, ToDo toDo) {
+    private void initializeToDoCardView(Context context) {
         setToDoView(context, toDo);
 
         setBackgroundColor(getResources().getColor(R.color.white));
@@ -41,32 +44,20 @@ public class ToDoCardView extends BaseLayout {
     private void setToDoView(Context context, ToDo toDo) {
         addView(new ToDoTitleTextView(context, toDo));
 
-        stepContainer = new StepContainerLayout(context);
+        addView(stepContainer = new StepContainerLayout(context, this));
 
-        addView(stepContainer);
+        initializeSteps(context);
 
         stepContainer.addView(new ToDoCardInformationLayout(context, toDo, toDoDao, mainActivity, stepContainer));
-
-        initializeSteps(context, toDo);
     }
 
     public StepContainerLayout getStepContainer() {
         return stepContainer;
     }
 
-    private void initializeSteps(Context context, ToDo toDo) {
-        for (StepLayout stepLayout : getToDoStepsView(context, toDo)) {
-            stepContainer.addView(stepLayout);
-        }
-    }
-
-    private List<StepLayout> getToDoStepsView(Context context, ToDo toDo) {
-        List<StepLayout> result = new ArrayList<>();
-
+    public void initializeSteps(Context context) {
         for (Step step : StepParser.getStepsByToDo(toDo)) {
-            result.add(new StepLayout(context, toDo, step, toDoDao));
+            stepContainer.addStep(new StepLayout(context, toDo, step, toDoDao));
         }
-
-        return result;
     }
 }

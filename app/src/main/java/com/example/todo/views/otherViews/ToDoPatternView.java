@@ -3,44 +3,33 @@ package com.example.todo.views.otherViews;
 import android.animation.LayoutTransition;
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.text.InputType;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import androidx.cardview.widget.CardView;
 
 import com.example.todo.dao.ToDoDao;
-import com.example.todo.views.layouts.BaseLayout;
 
 @SuppressLint("ViewConstructor")
-public class PatternToDoView extends CardView {
+public class ToDoPatternView extends CardView {
 
-    private static EditText titleToDoTextView;
-    private final BaseLayout layout;
+    public static BaseEditText titleToDoTextView;
 
-    public PatternToDoView(Context context, ToDoDao toDoDao) {
+    public ToDoPatternView(Context context, ToDoDao toDoDao) {
         super(context);
 
         setLayoutParams();
-
-        addView(layout = new BaseLayout(context, LinearLayout.VERTICAL));
 
         inizializeContent(context);
     }
 
     private void inizializeContent(Context context) {
-        titleToDoTextView = new EditText(context);
+        addView(titleToDoTextView = new BaseEditText(
+                context,
+                "Текст дела",
+                20
+        ));
 
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-        );
-        titleToDoTextView.setLayoutParams(layoutParams);
-        titleToDoTextView.setHint("Текст дела");
         setVisibility(GONE);
-        titleToDoTextView.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
-
-        layout.addView(titleToDoTextView);
     }
 
     public static String getTitleInputText() {
@@ -62,7 +51,7 @@ public class PatternToDoView extends CardView {
 
         setRadius(30f);
 
-        setContentPadding(25,25,25,25);
+        setContentPadding(15,15,15,15);
 
         setLayoutParams(layoutParams);
 
@@ -75,9 +64,5 @@ public class PatternToDoView extends CardView {
         layoutTransition.enableTransitionType(LayoutTransition.CHANGING);
 
         return layoutTransition;
-    }
-
-    public void setFocusOnTextEdit() {
-        titleToDoTextView.requestFocus();
     }
 }

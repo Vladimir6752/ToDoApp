@@ -5,6 +5,8 @@ import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Entity(tableName = "todo")
 public class ToDo implements Serializable {
@@ -24,6 +26,9 @@ public class ToDo implements Serializable {
     }
 
     public ToDo() {
+        Date date = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd 'в' HH:mm");
+        setCreatedDate(simpleDateFormat.format(date));
     }
 
     public int getId() {

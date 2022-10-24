@@ -8,7 +8,7 @@ import android.widget.LinearLayout;
 import androidx.cardview.widget.CardView;
 
 import com.example.todo.dao.ToDoDao;
-import com.example.todo.listeners.OnToDoCardViewListener;
+import com.example.todo.listeners.OnClickToDoCardViewListener;
 import com.example.todo.models.ToDo;
 import com.example.todo.views.activities.MainActivity;
 
@@ -24,7 +24,7 @@ public class ToDoCardShell extends CardView {
 
         addView(toDoCardView = new ToDoCardView(context, toDo, this.mainActivity, toDoDao));
 
-        this.setOnClickListener(new OnToDoCardViewListener(toDoCardView.getStepContainer()));
+        this.setOnClickListener(new OnClickToDoCardViewListener(toDoCardView.getStepContainer(), this));
     }
 
     private void setLayoutParams() {

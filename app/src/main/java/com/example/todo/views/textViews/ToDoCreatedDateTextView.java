@@ -5,6 +5,7 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.todo.R;
@@ -20,9 +21,14 @@ public class ToDoCreatedDateTextView extends BaseTextView {
                 toDo.getCreatedDate()
         );
 
-        setLayoutParams(new ViewGroup.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.MATCH_PARENT
-        ));
+        setParams();
+    }
+
+    private void setParams() {
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);;
+        params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+        params.addRule(RelativeLayout.CENTER_VERTICAL);
+
+        setLayoutParams(params);
     }
 }

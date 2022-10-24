@@ -11,11 +11,13 @@ import com.example.todo.listeners.OnClickAddToDoButtonListener;
 import com.example.todo.logicClasses.StepParser;
 import com.example.todo.dao.ToDoDao;
 import com.example.todo.data.ToDoDatabase;
+import com.example.todo.models.Step;
 import com.example.todo.models.ToDo;
 import com.example.todo.views.otherViews.ToDoCardShell;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
@@ -30,16 +32,27 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ToDoDatabase database = Room.databaseBuilder(
-                        getApplicationContext(),
-                        ToDoDatabase.class,
-                        TODO_DATABASE_NAME)
+        toDoDao = Room.databaseBuilder(getApplicationContext(), ToDoDatabase.class, TODO_DATABASE_NAME)
                 .allowMainThreadQueries()
                 .fallbackToDestructiveMigration()
-                .build();
-        toDoDao = database.getToDoDao();
+                .build()
+                .getToDoDao();
+
+        for (ToDo allToDo : toDoDao.getAllToDos()) {
+            toDoDao.deleteToDo(allToDo);
+        }
+
 
         new StepParser(toDoDao);
+
+        Step step = new Step();
+        step.setContent("step content");
+        ToDo toDo = new ToDo();
+
+        toDo.setTitle("asd");
+        toDo.setSteps(StepParser.setStepsArray(Arrays.asList(step, step)));
+
+        toDoDao.addToDo(toDo);
 
         mainLayout = findViewById(R.id.mainLayout);
         patternTodoLayout = findViewById(R.id.patternTodo);
