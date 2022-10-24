@@ -16,6 +16,7 @@ import com.example.todo.models.ToDo;
 import com.example.todo.views.layouts.BaseLayout;
 import com.example.todo.views.layouts.StepContainerLayout;
 import com.example.todo.views.layouts.StepLayout;
+import com.example.todo.views.layouts.ToDoCardInformationLayout;
 import com.example.todo.views.textViews.ToDoCreatedDateTextView;
 import com.example.todo.views.textViews.ToDoTitleTextView;
 
@@ -47,7 +48,7 @@ public class ToDoCardView extends BaseLayout {
 
         addView(stepContainer);
 
-        stepContainer.addView(new ToDoCreatedDateTextView(context, toDo));
+        stepContainer.addView(new ToDoCardInformationLayout(context, toDo, toDoDao));
 
         initializeSteps(context, toDo);
     }
