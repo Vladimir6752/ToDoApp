@@ -24,7 +24,12 @@ public class ToDoCardShell extends CardView {
 
         addView(toDoCardView = new ToDoCardView(context, toDo, this.mainActivity, toDoDao));
 
-        this.setOnClickListener(new OnClickToDoCardViewListener(toDoCardView.getStepContainer(), this));
+        this.setOnClickListener(
+                new OnClickToDoCardViewListener(
+                        toDoCardView.inlineContextToDoLayout,
+                        this
+                )
+        );
     }
 
     private void setLayoutParams() {

@@ -2,20 +2,38 @@ package com.example.todo.views.layouts;
 
 import android.content.Context;
 import android.widget.CheckBox;
-import android.widget.LinearLayout;
 
+import com.example.todo.R;
 import com.example.todo.views.otherViews.BaseEditText;
 
 public class StepPatternLayout extends BaseLayout {
-    private static BaseEditText stepText;
+    private final CheckBox checkBox;
+    public final BaseEditText stepText;
 
     public StepPatternLayout(Context context) {
-        super(context, 5, HORIZONTAL);
+        super(context, HORIZONTAL);
 
-        addView(new CheckBox(context));
+        addView(checkBox = new CheckBox(context));
 
-        addView(stepText = new BaseEditText(context, "Шаг", 12));
+        addView(
+                stepText = new BaseEditText(
+                        context,
+                        "Шаг",
+                        12,
+                        15,0,-5,0
+                )
+        );
 
         setVisibility(GONE);
+
+        setParam();
+    }
+
+    private void setParam() {
+        stepText.setTextAppearance(androidx.appcompat.R.style.TextAppearance_AppCompat_Medium);
+        stepText.setTextColor(getResources().getColor(R.color.black));
+
+        //stepText.setMargin(5,0,-5, 0);
+        setMargin(5,-13,5,-13);
     }
 }

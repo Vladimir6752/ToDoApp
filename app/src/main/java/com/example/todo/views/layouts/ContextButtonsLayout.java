@@ -1,5 +1,6 @@
 package com.example.todo.views.layouts;
 
+import android.animation.LayoutTransition;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.ViewGroup;
@@ -15,7 +16,7 @@ public class ContextButtonsLayout extends BaseLayout {
     public ContextButtonsLayout(Context context, ToDo toDo, ToDoDao toDoDao, StepContainerLayout stepContainerLayout, MainActivity mainActivity) {
         super(context, HORIZONTAL);
 
-        addView(new AddStepInToDoButton(context, toDo, toDoDao, stepContainerLayout));
+        addView(new AddStepInToDoButton(context, toDo, toDoDao, stepContainerLayout, mainActivity));
         addView(new DeleteToDoButton(context, toDo, toDoDao, mainActivity));
 
         setVisibility(GONE);

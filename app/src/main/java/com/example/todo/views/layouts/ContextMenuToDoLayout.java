@@ -7,13 +7,11 @@ import android.widget.RelativeLayout;
 import com.example.todo.dao.ToDoDao;
 import com.example.todo.models.ToDo;
 import com.example.todo.views.activities.MainActivity;
-import com.example.todo.views.buttons.AddStepInToDoButton;
-import com.example.todo.views.buttons.ContextToDoMenuButton;
-import com.example.todo.views.buttons.DeleteToDoButton;
+import com.example.todo.views.buttons.OpenToDoContextMenuButton;
 
 @SuppressLint("ViewConstructor")
-public class ContextToDoLayout extends BaseLayout {
-    public ContextToDoLayout(Context context, ToDo toDo, ToDoDao toDoDao, StepContainerLayout stepContainerLayout, MainActivity mainActivity) {
+public class ContextMenuToDoLayout extends BaseLayout {
+    public ContextMenuToDoLayout(Context context, ToDo toDo, ToDoDao toDoDao, StepContainerLayout stepContainerLayout, MainActivity mainActivity) {
         super(context, HORIZONTAL);
 
         setParams();
@@ -32,6 +30,6 @@ public class ContextToDoLayout extends BaseLayout {
 
         addView(contextButtonsLayout);
 
-        addView(new ContextToDoMenuButton(context, contextButtonsLayout));
+        addView(new OpenToDoContextMenuButton(context, contextButtonsLayout));
     }
 }

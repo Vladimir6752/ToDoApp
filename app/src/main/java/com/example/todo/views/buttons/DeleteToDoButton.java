@@ -5,7 +5,7 @@ import android.content.Context;
 
 import com.example.todo.R;
 import com.example.todo.dao.ToDoDao;
-import com.example.todo.listeners.OnClickDeleteToDoButton;
+import com.example.todo.listeners.OnClickDeleteToDoButtonListener;
 import com.example.todo.models.ToDo;
 import com.example.todo.views.activities.MainActivity;
 
@@ -15,7 +15,7 @@ public class DeleteToDoButton extends BaseImageButton {
         super(
                 context,
                 R.drawable.ic_delete_todo,
-                new OnClickDeleteToDoButton(toDo, toDoDao, mainActivity)
+                new OnClickDeleteToDoButtonListener(toDo, toDoDao, mainActivity)
         );
     }
 }

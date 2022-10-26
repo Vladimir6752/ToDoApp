@@ -11,14 +11,10 @@ import com.example.todo.views.otherViews.ToDoPatternView;
 
 public class OnClickAddToDoButtonListener implements View.OnClickListener {
     private final ToDoPatternView toDoPatternView;
-    private final ToDoDao toDoDao;
-    private final Context context;
     private final MainActivity mainActivity;
-    private InputMethodManager activitySystemService;
+    private final InputMethodManager activitySystemService;
 
     public OnClickAddToDoButtonListener(ToDoDao toDoDao, LinearLayout mainLayout, Context context, MainActivity mainActivity) {
-        this.toDoDao = toDoDao;
-        this.context = context;
         this.mainActivity = mainActivity;
 
         activitySystemService = (InputMethodManager) mainActivity.getSystemService(Context.INPUT_METHOD_SERVICE);

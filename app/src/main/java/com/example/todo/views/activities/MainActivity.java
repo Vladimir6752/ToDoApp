@@ -1,5 +1,7 @@
 package com.example.todo.views.activities;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
 import android.widget.LinearLayout;
 
@@ -22,7 +24,7 @@ import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TODO_DATABASE_NAME = "toDo-database1";
-    private FloatingActionButton addToDoButton;
+    public static FloatingActionButton addToDoButton;
     private LinearLayout patternTodoLayout;
     private LinearLayout mainLayout;
     private ToDoDao toDoDao;
@@ -38,21 +40,18 @@ public class MainActivity extends AppCompatActivity {
                 .build()
                 .getToDoDao();
 
-        for (ToDo allToDo : toDoDao.getAllToDos()) {
+        new StepParser(toDoDao);
+
+        /*for (ToDo allToDo : toDoDao.getAllToDos()) {
             toDoDao.deleteToDo(allToDo);
         }
 
-
-        new StepParser(toDoDao);
-
         Step step = new Step();
-        step.setContent("step content");
+        step.setContent("123");
         ToDo toDo = new ToDo();
-
-        toDo.setTitle("asd");
-        toDo.setSteps(StepParser.setStepsArray(Arrays.asList(step, step)));
-
-        toDoDao.addToDo(toDo);
+        toDo.setTitle("qrqrqwr");
+        toDo.setSteps(StepParser.setStepsArray(Arrays.asList(step)));
+        toDoDao.addToDo(toDo);*/
 
         mainLayout = findViewById(R.id.mainLayout);
         patternTodoLayout = findViewById(R.id.patternTodo);
@@ -81,14 +80,15 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @SuppressLint("SimpleDateFormat")
     public void setNewToDo(String titleInputText) {
         ToDo toDo = new ToDo();
         toDo.setTitle(titleInputText);
 
-        System.out.println("new todo");
-        Date date = new Date();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd 'в' HH:mm");
-        toDo.setCreatedDate(simpleDateFormat.format(date));
+        toDo.setCreatedDate(
+                new SimpleDateFormat("yyyy.MM.dd 'в' HH:mm")
+                .format(new Date())
+        );
 
         toDoDao.addToDo(toDo);
 

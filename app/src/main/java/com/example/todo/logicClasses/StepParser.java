@@ -29,26 +29,35 @@ public class StepParser {
     }
 
     public static void addStepIntoTodo(ToDo toDo, Step step) {
-        toDo.setSteps(toDo.getSteps() + "/" + step + " isDone=false");
+        String steps = toDo.getSteps();
+
+        if(steps == null) steps = "";
+
+        toDo.setSteps(steps + "/" + step.getContent() + " isDone=false");
         toDoDao.updateToDo(toDo);
     }
 
-    public static void setDoneIntoStepFromTodo(ToDo todo, int stepId) {
-        List<Step> stepsList = getStepsArray(todo.getSteps());
-        Step step = stepsList.stream().filter(x -> x.getId() == stepId).findFirst().get();
-        step.setDone(!step.isDone());
-
-        todo.setSteps(setStepsArray(stepsList));
-
-        toDoDao.updateToDo(todo);
+    public static int getStepsCountInToDo(ToDo toDo) {
+        return getStepsArray(toDo.getSteps()).size();
     }
 
-    public static void deleteStepInToDo(ToDo todo, int stepId) {
+    public static void setDoneIntoStepFromTodo(ToDo todo, Step step) {
         List<Step> stepsList = getStepsArray(todo.getSteps());
-        Step step = stepsList.stream().filter(x -> x.getId() == stepId).findFirst().get();
 
-        stepsList.remove(step);
+        for (Step step1 : stepsList) {
+            System.out.println(step1);
+        }
+
+
+        for (Step step1 : stepsList) {
+            if(step.getId() == step1.getId()) {
+                step1.setDone(!step1.isDone());
+            }
+        }
+
         todo.setSteps(setStepsArray(stepsList));
+
+        System.out.println("\n" + todo.getSteps() + "\n");
 
         toDoDao.updateToDo(todo);
     }
@@ -57,6 +66,7 @@ public class StepParser {
         StringBuilder result = new StringBuilder();
 
         for (Step step : stepsList) {
+            System.out.println(step.getContent() + "?" + step.isDone());
             result.append("/").append(step.getContent()).append(" isDone=").append(step.isDone());
         }
 
@@ -65,33 +75,70 @@ public class StepParser {
 
     private static List<Step> getStepsArray(String steps) {
         List<Step> result = new ArrayList<>();
+        //System.out.println(steps);
 
         /*первое задание isDone=true/второе задание isDone=false*/
 
-        String[] splitSteps = steps.split("/");
+        String[] splitSteps;
+
+        try {
+            splitSteps = steps.split("/");
+        } catch (Exception ignored) {
+            return result;
+        }
 
         for (int i = 0; i < splitSteps.length; i++) {
             if(splitSteps[i].equals("")) continue;
 
-            String step = splitSteps[i];
+            String stepString = splitSteps[i];
+            //System.out.println(stepString);
 
             Step stepLocal = new Step();
             stepLocal.setId(i);
 
             StringBuilder stepLocalContent = new StringBuilder();
-            for (String inlineStroke : step.split(" ")) {
-                if (inlineStroke.equals("isDone=false") ||inlineStroke.equals("isDone=true")) {
+            for (String inlineStroke : stepString.split(" ")) {
+                //System.out.println(inlineStroke);
+                if (inlineStrokeIsDone(inlineStroke)) {
                     String stepIsDoneValue = inlineStroke.split("=")[1];
                     stepLocal.setDone(stepIsDoneValue.equals("true"));
                     break;
+                } else {
+                    stepLocalContent.append(inlineStroke);
+                    if(stepLocalContent.charAt(stepLocalContent.length() - 1) != ' ')
+                        stepLocalContent.append(" ");
                 }
-                else stepLocalContent.append(inlineStroke).append(" ");
             }
 
             stepLocal.setContent(stepLocalContent.toString());
             result.add(stepLocal);
+            //System.out.println(stepLocal);
         }
 
         return result;
+    }
+
+    private static boolean inlineStrokeIsDone(String inlineStroke) {
+        return inlineStroke.equals("isDone=false") || inlineStroke.equals("isDone=true");
+    }
+
+    public static void removeStepInToDo(ToDo toDo, Step step) {
+        List<Step> resultArray = new ArrayList<>();
+
+        for (Step step1 : getStepsArray(toDo.getSteps())) {
+            if(step1.getId() == step.getId()) continue;
+
+            resultArray.add(step1);
+        }
+
+        for (int i = 0; i < resultArray.size(); i++) {
+            Step step1 = resultArray.get(i);
+            System.out.println(step1.getId() + " меняю на " + i);
+            step1.setId(i);
+        }
+
+        toDo.setSteps(setStepsArray(resultArray));
+
+        toDoDao.updateToDo(toDo);
     }
 }

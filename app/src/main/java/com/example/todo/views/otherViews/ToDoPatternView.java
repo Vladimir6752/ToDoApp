@@ -26,16 +26,14 @@ public class ToDoPatternView extends CardView {
         addView(titleToDoTextView = new BaseEditText(
                 context,
                 "Текст дела",
-                20
-        ));
+                20,
+                0));
 
         setVisibility(GONE);
     }
 
     public static String getTitleInputText() {
-        String s = titleToDoTextView.getText().toString();
-
-        return s;
+        return titleToDoTextView.getText().toString();
     }
 
     public static void setTitleToDoTextView(String text) {
