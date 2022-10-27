@@ -59,11 +59,11 @@ public class ToDoCardView extends BaseLayout {
     }
 
     private void removeAllSteps(StepContainerLayout stepContainer) {
-        for (int i = 0; i < stepContainer.getChildCount(); i++) {
+        for (int i = stepContainer.getChildCount() - 1; i >= 0; i--) {
             if(isStepPatternLayout(stepContainer, i)) {
                 continue;
             }
-
+            
             stepContainer.removeViewAt(i);
         }
     }

@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
                 .build()
                 .getToDoDao();
 
-        new StepParser(toDoDao);
+        StepParser.toDoDao = toDoDao;
 
         /*for (ToDo allToDo : toDoDao.getAllToDos()) {
             toDoDao.deleteToDo(allToDo);
@@ -55,13 +55,13 @@ public class MainActivity extends AppCompatActivity {
 
         mainLayout = findViewById(R.id.mainLayout);
         patternTodoLayout = findViewById(R.id.patternTodo);
-        addToDoButton = findViewById(R.id.addToDoButton);
 
         inizializeAllToDoView();
         inizialiseAddToDoButton();
     }
 
     private void inizialiseAddToDoButton() {
+        addToDoButton = findViewById(R.id.addToDoButton);
         addToDoButton.setOnClickListener(
                 new OnClickAddToDoButtonListener(
                         toDoDao,

@@ -30,6 +30,6 @@ public class OnLongClickStepListener implements View.OnLongClickListener {
         StepParser.removeStepInToDo(toDo, step);
         stepContainerLayout.toDoCardView.initializeSteps();
 
-        return false;
+        return true;
     }
 }

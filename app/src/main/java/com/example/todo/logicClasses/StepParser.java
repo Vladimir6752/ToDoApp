@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StepParser {
-    private static ToDoDao toDoDao = null;
+    public static ToDoDao toDoDao = null;
 
     public StepParser(ToDoDao toDoDao) {
         StepParser.toDoDao = toDoDao;
